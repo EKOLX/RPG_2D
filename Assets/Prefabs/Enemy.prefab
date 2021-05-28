@@ -13,7 +13,10 @@ GameObject:
   - component: {fileID: 2273375842407124819}
   - component: {fileID: 2273375842407124817}
   - component: {fileID: 2273375842407124818}
-  m_Layer: 6
+  - component: {fileID: 5688563359755292825}
+  - component: {fileID: -2485853479823015310}
+  - component: {fileID: 6660498087419104547}
+  m_Layer: 8
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -72,7 +75,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1290993525
-  m_SortingLayer: 1
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -5720429097031363069, guid: 748c39c7600ed4a1a8a283297b8a10a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -150,4 +153,50 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!58 &5688563359755292825
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273375842407124830}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 5
+--- !u!114 &-2485853479823015310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273375842407124830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 426096ff862f64ded8bb51033efc60bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHitPoints: 5
+  maxHitPoints: 5
+  damageStrength: 1
+--- !u!114 &6660498087419104547
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2273375842407124830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c7086374b3944a87aef5135ea18a76f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pursuitSpeed: 2
+  wanderSpeed: 1
+  directionChangeInterval: 3

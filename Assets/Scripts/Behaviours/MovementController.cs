@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovementController : MonoBehaviour
@@ -9,15 +7,6 @@ public class MovementController : MonoBehaviour
 
     private Animator animator = default;
     private Rigidbody2D rb2D = default;
-    private string animationState = "AnimationState";
-    private enum MoveState
-    {
-        idle = 0,
-        left = 1,
-        right = 2,
-        up = 3,
-        down = 4
-    }
 
     private void Start()
     {
@@ -39,32 +28,34 @@ public class MovementController : MonoBehaviour
     {
         if (movement.x > 0)
         {
-            animator.SetInteger(animationState, (int)MoveState.right);
+            animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Right);
         }
         else if (movement.x < 0)
         {
-            animator.SetInteger(animationState, (int)MoveState.left);
+            animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Left);
         }
         else if (movement.y > 0)
         {
-            animator.SetInteger(animationState, (int)MoveState.up);
+            animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Up);
         }
         else if (movement.y < 0)
         {
-            animator.SetInteger(animationState, (int)MoveState.down);
+            animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Down);
         }
         else
         {
-            animator.SetInteger(animationState, (int)MoveState.idle);
+            animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Idle);
         }
     }
 
     private void MoveCharacter()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+#if UNITY_EDITOR
+        movement.x = Input.GetAxisRaw(K.horizontal);
+        movement.y = Input.GetAxisRaw(K.vertical);
         movement.Normalize();
         rb2D.velocity = movement * speed;
+#endif
     }
 
 }
