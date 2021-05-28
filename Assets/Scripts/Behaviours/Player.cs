@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Player : Character
 {
     [HideInInspector] public Action<int> onPickUp;
+    [HideInInspector] public Action<int> onHPChange;
 
     [SerializeField] private HitPoints hitPoints;
     [SerializeField] private int heartCount;
@@ -37,6 +38,7 @@ public class Player : Character
             else
             {
                 hitPoints.value -= damage;
+                onHPChange?.Invoke(hitPoints.value);
             }
 
             if (interval > 0)

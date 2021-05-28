@@ -3,15 +3,15 @@ using UnityEngine;
 public class MovementController : MonoBehaviour
 {
     [SerializeField] private float speed = 3.0f;
-    [SerializeField] private Vector2 movement = new Vector2();
+    [SerializeField] private Transform targetTransform = default;
 
+    private Touch touch;
     private Animator animator = default;
-    private Rigidbody2D rb2D = default;
+    private Vector3 targetPosition = default;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        rb2D = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -26,19 +26,19 @@ public class MovementController : MonoBehaviour
 
     private void UpdateState()
     {
-        if (movement.x > 0)
+        if (targetPosition.x > 0)
         {
             animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Right);
         }
-        else if (movement.x < 0)
+        else if (targetPosition.x < 0)
         {
             animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Left);
         }
-        else if (movement.y > 0)
+        else if (targetPosition.y > 0)
         {
             animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Up);
         }
-        else if (movement.y < 0)
+        else if (targetPosition.y < 0)
         {
             animator.SetInteger(K.AnimationKey.animationState, (int)MoveState.Down);
         }
@@ -51,10 +51,23 @@ public class MovementController : MonoBehaviour
     private void MoveCharacter()
     {
 #if UNITY_EDITOR
-        movement.x = Input.GetAxisRaw(K.horizontal);
-        movement.y = Input.GetAxisRaw(K.vertical);
-        movement.Normalize();
-        rb2D.velocity = movement * speed;
+        if (Input.GetMouseButtonUp(0))
+        {
+            targetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetTransform.position = targetPosition;
+        }
+#endif
+#if UNITY_IOS || UNITY_ANDROID 
+        if (Input.touchCount > 0)
+        {
+            touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Ended)
+            {
+                targetPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                targetTransform.position = targetPosition;
+            }
+        }
 #endif
     }
 
